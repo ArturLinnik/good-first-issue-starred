@@ -1,35 +1,39 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import React, { useState } from "react";
+import Card from "./components/Card";
+import "./App.css";
 
 function App() {
-  const [count, setCount] = useState(0)
+  const [username, setUsername] = useState("commodoro"); // CHANGE THIS
+  const [starredRepositoriesData, setStarredRepositoriesData] = useState<
+    Array<any>
+  >([]);
+
+  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setUsername(e.target.value);
+  };
+
+  const fetchIssues = async () => {
+    try {
+      // Get starred repostories
+      const response = await fetch(
+        `https://api.github.com/users/${username}/starred`
+      );
+      const starredRepos = await response.json();
+      setStarredRepositoriesData(starredRepos);
+    } catch (error) {
+      console.error("Error App.tsx:", error);
+    }
+  };
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+    <div className="App">
+      <input type="text" value={username} onChange={handleInputChange} />
+      <button onClick={fetchIssues}>Fetch Issues</button>
+      {starredRepositoriesData.map((item) => (
+        <Card repo={item} repoName={item.full_name}></Card>
+      ))}
+    </div>
+  );
 }
 
-export default App
+export default App;
