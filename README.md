@@ -6,13 +6,13 @@ This is a website that lists all the issues with the tag "good-first-issue" of t
 
 Just install the dependencies with
 
-```
+```bash
 npm install
 ```
 
 and run the project with
 
-```
+```bash
 npm run dev
 ```
 
@@ -24,27 +24,15 @@ You have to have `node` and `npm` installed on your machine.
 
 Try these with:
 
-```
+```bash
 npm --version
 ```
 
 and
 
-```
+```bash
 node --version
 ```
-
-### And coding style tests
-
-Explain what these tests test and why
-
-```
-Give an example
-```
-
-## Deployment
-
-Add additional notes about how to deploy this on a live system
 
 ## Built With
 
